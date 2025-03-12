@@ -84,11 +84,12 @@ WSGI_APPLICATION = "condoforge.wsgi.application"
 #        "NAME": BASE_DIR / "db.sqlite3",
 #    } 
 
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,  # Mantiene la conexión por 10 minutos
-        ssl_require=True   # Asegura que se usa SSL en Render
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@localhost:5432/condoforge',
+        conn_max_age=600
     )
 }
 
@@ -125,10 +126,12 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-
+# This setting informs Django of the URI path from which your static files will be served to users
+# Here, they well be accessible at your-domain.onrender.com/static/... or yourcustomdomain.com/static/...
 STATIC_URL = '/static/'
+
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
@@ -136,7 +139,6 @@ if not DEBUG:
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -144,6 +146,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
