@@ -1,0 +1,7 @@
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Usuario">
+    <input type="password" name="password" placeholder="Contraseña">
+    <button type="submit">Ingresar</button>
+    <p>{{ error }}</p>
+</form>

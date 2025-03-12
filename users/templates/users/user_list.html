@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="GET">
+    <input type="text" name="q" placeholder="Buscar usuario..." value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+<!-- Esto no estaba planeado -->
+{% if users %}
+    <p>Usuarios encontrados: {{ users|length }}</p>
+{% else %}
+    <p>No se encontraron usuarios</p>
+{% endif %}
+<!-- hasta aca -->
+{% for user in users %}
+<p>
+    <a href="{% url 'user_profile' user.pk %}">{{ user.username }}</a> - {{ user.email }}
+    <a href="{% url 'user_edit' user.pk %}">Editar</a> | 
+    <a href="{% url 'user_delete' user.pk %}">Eliminar</a>
+</p>
+{% endfor %}
+<a href="{% url 'user_create' %}">Crear Usuario</a>
+
+{% endblock %}

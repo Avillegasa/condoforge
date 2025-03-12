@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Editar Vivienda {{ vivienda.codigo }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="id_titular">Titular:</label>
+    <select name="titular">
+        <option value="">Selecciona un titular</option>
+        {% for user in form.titular.field.queryset %}
+        <option value="{{ user.pk }}" {% if vivienda.titular == user %}selected{% endif %}>
+            {{ user.username }}
+        </option>
+        {% endfor %}
+    </select>
+    <br>
+
+    <label for="id_habitantes">Habitantes:</label>
+    <select name="habitantes" multiple>
+        {% for user in form.habitantes.field.queryset %}
+        <option value="{{ user.pk }}" {% if user in vivienda.habitantes.all %}selected{% endif %}>
+            {{ user.username }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<a href="{% url 'lista_viviendas' %}">Volver al listado</a>
+{% endblock %}

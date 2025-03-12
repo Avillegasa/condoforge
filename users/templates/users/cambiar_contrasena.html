@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Cambiar Contraseña</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Nueva Contraseña:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<a href="{% url 'listado_copropietarios' %}">Volver al listado</a>
+{% endblock %}

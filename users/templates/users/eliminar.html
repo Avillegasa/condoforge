@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Eliminar Copropietario</h2>
+
+<p>¿Estás seguro de que deseas eliminar a <strong>{{ user.get_full_name }}</strong>?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+</form>
+
+<a href="{% url 'listado_copropietarios' %}">Cancelar</a>
+{% endblock %}

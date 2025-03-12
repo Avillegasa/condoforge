@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Editar Copropietario</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Nombre:</label>
+    <input type="text" name="first_name" value="{{ user.first_name }}" required>
+
+    <label>username:</label>
+    <input type="text" name="username" value="{{ user.username }}" required>
+    
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+    
+    <label>Celular:</label>
+    <input type="text" name="phone" value="{{ user.phone }}">
+
+    <label>Tipo de Habitante:</label>
+    <select name="tipo_habitante">
+        <option value="titular" {% if user.tipo_habitante == "titular" %}selected{% endif %}>Titular</option>
+        <option value="dueno" {% if user.tipo_habitante == "dueno" %}selected{% endif %}>Dueño</option>
+        <option value="copropietario" {% if user.tipo_habitante == "copropietario" %}selected{% endif %}>Copropietario</option>
+        <option value="menor" {% if user.tipo_habitante == "menor" %}selected{% endif %}>Menor</option>
+    </select>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a href="{% url 'listado_copropietarios' %}">Volver al listado</a>
+{% endblock %}

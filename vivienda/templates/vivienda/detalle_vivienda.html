@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalles de Vivienda {{ vivienda.codigo }}</h2>
+
+<p><strong>Familia Propietaria:</strong> {{ vivienda.titular }}</p>
+<p><strong>Número de Habitantes:</strong> {{ vivienda.numero_habitantes }}</p>
+<p><strong>Número de Mascotas:</strong> {{ vivienda.numero_mascotas }}</p>
+
+<h3>Habitantes:</h3>
+<ul>
+    {% for habitante in vivienda.habitantes.all %}
+    <li><a href="{% url 'user_profile' habitante.pk %}">{{ habitante.username }}</a></li>
+    {% endfor %}
+</ul>
+
+<h3>Mascotas:</h3>
+<ul>
+    {% for mascota in vivienda.mascotas.all %}
+    <li><a href="{% url 'detalle_mascota' mascota.id %}">{{ mascota.nombre }} - {{ mascota.tipo }}</a></li>
+    {% empty %}
+    <p>No hay mascotas registradas.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'lista_viviendas' %}">Volver a lista de viviendas</a>
+
+<!-- Botón para agregar integrantes -->
+<a href="{% url 'agregar_integrante' vivienda.id %}">Agregar Integrante</a>
+
+<!-- Botón para registrar mascotas -->
+<a href="{% url 'registrar_mascota' vivienda.id %}">Registrar Mascota</a>
+
+{% endblock %}

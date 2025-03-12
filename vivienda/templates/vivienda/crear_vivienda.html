@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Registrar Nueva Vivienda</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="id_codigo">Código:</label>
+    <input type="text" name="codigo" value="{{ form.codigo.value|default_if_none:'' }}" required>
+
+    <br>
+
+    <label for="id_titular">Titular:</label>
+    <select name="titular">
+        <option value="">Selecciona un titular</option>
+        {% for user in form.titular.field.queryset %}
+        <option value="{{ user.pk }}">
+            {{ user.username }}
+        </option>
+        {% endfor %}
+    </select>
+    <br>
+    
+
+    <label for="id_habitantes">Habitantes:</label>
+    <select name="habitantes" multiple>
+        {% for user in form.habitantes.field.queryset %}
+        <option value="{{ user.pk }}">
+            {{ user.username }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Crear Vivienda</button>
+</form>
+
+<a href="{% url 'lista_viviendas' %}">Volver al listado</a>
+{% endblock %}

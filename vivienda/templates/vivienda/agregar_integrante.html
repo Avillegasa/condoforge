@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agregar Integrante a Vivienda {{ vivienda.codigo }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="usuario">Seleccionar usuario:</label>
+    <select name="usuario_id">
+        {% for usuario in usuarios %}
+        <option value="{{ usuario.id }}">{{ usuario.get_full_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Agregar</button>
+</form>
+
+<a href="{% url 'detalle_vivienda' vivienda.id %}">Volver</a>
+{% endblock %}

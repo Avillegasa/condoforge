@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Registrar Mascota en Vivienda {{ vivienda.codigo }}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrar</button>
+</form>
+{% if vivienda.id %}
+<a href="{% url 'detalle_vivienda' vivienda.id %}">Volver</a>
+{% else %}
+<p>Error: No se encontró la vivienda.</p>
+{% endif %}
+<a href="{% url 'detalle_vivienda' vivienda.id %}">Volver</a>
+{% endblock %}

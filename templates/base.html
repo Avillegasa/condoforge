@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel Principal{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .sidebar { width: 200px; height: 100vh; background: #007bff; color: white; position: fixed; padding: 20px; }
+        .sidebar a { display: block; color: white; text-decoration: none; margin: 10px 0; }
+        .content { margin-left: 220px; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h3>Menú</h3>
+    <a href="{% url 'panel_principal' %}">Inicio</a>
+    <a href="{% url 'lista_viviendas' %}">Viviendas</a>
+    <a href="{% url 'user_list' %}">Usuarios</a>
+    <a href="{% url 'listado_copropietarios' %}">Copropietarios</a>
+    <a href="#">Reservas</a>
+</div>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

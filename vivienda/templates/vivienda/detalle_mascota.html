@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalle de Mascota: {{ mascota.nombre }}</h2>
+<p><strong>Tipo:</strong> {{ mascota.tipo }}</p>
+<p><strong>Raza:</strong> {{ mascota.raza }}</p>
+<p><strong>Color:</strong> {{ mascota.color }}</p>
+{% if mascota.foto %}
+    <img src="{{ mascota.foto.url }}" alt="Foto de {{ mascota.nombre }}">
+{% endif %}
+<a href="{% url 'detalle_vivienda' mascota.vivienda.id %}">Volver a la Vivienda</a>
+{% endblock %}

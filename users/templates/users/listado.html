@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Listado de Copropietarios</h2>
+
+<!-- Formulario de búsqueda y filtrado -->
+<form method="GET" action="{% url 'listado_copropietarios' %}">
+    <input type="text" name="q" placeholder="Buscar por nombre, CI, email, celular o vivienda..." value="{{ request.GET.q }}">
+    <select name="tipo_habitante">
+        <option value="">Todos</option>
+        <option value="titular" {% if request.GET.tipo_habitante == "titular" %}selected{% endif %}>Titular</option>
+        <option value="dueno" {% if request.GET.tipo_habitante == "dueno" %}selected{% endif %}>Dueño</option>
+        <option value="copropietario" {% if request.GET.tipo_habitante == "copropietario" %}selected{% endif %}>Copropietario</option>
+        <option value="menor" {% if request.GET.tipo_habitante == "menor" %}selected{% endif %}>Menor</option>
+    </select>
+    <button type="submit">Buscar</button>
+</form>
+
+<!-- Botones de Exportación -->
+<!-- <a href="{% url 'exportar_copropietarios_excel' %}">Exportar a Excel</a> -->
+<!-- <a href="{% url 'exportar_copropietarios_pdf' %}">Exportar a PDF</a> -->
+
+<!-- Tabla de copropietarios -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>CI</th>
+            <th>Email</th>
+            <th>Celular</th>
+            <th>Vivienda</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for copropietario in page_obj %}
+        <tr>
+            <td>{{ copropietario.first_name }}</td>
+            <td>{{ copropietario.username }}</td>
+            <td>{{ copropietario.email }}</td>
+            <td>{{ copropietario.phone }}</td>
+            <td>{% if copropietario.vivienda %} {{ copropietario.vivienda.codigo }} {% else %} - {% endif %}</td>
+            <td>
+                <a href="{% url 'editar_copropietario' copropietario.id %}">Editar</a> |
+                <a href="{% url 'cambiar_contrasena' copropietario.id %}">Cambiar Contraseña</a> |
+                <a href="{% url 'eliminar_copropietario' copropietario.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No se encontraron copropietarios.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Paginación -->
+<div>
+    {% if page_obj.has_previous %}
+        <a href="?page=1">Primera</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+    {% endif %}
+
+    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+    {% endif %}
+</div>
+
+{% endblock %}

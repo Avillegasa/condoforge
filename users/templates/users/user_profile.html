@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Perfil de {{ user.username }}</h2>
+<p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+<p><strong>Teléfono:</strong> {{ user.phone }}</p>
+<p><strong>Dirección:</strong> {{ user.address }}</p>
+<p><strong>Rol:</strong> {{ user.get_role_display }}</p>
+
+<!-- Botón para volver a la lista de usuarios -->
+<a href="{% url 'user_list' %}">
+    <button>Volver a la lista de usuarios</button>
+</a>
+<a href="{% url 'password_change' %}">Cambiar Contraseña</a>
+<a href="{% url 'logout' %}">Cerrar sesión</a>
+{% endblock %}
+
+

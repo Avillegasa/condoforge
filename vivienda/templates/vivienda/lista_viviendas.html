@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Listado de Viviendas</h2>
+
+<!-- Formulario de búsqueda -->
+<form method="GET">
+    <input type="text" name="query" placeholder="Buscar vivienda" value="{{ request.GET.query }}">
+    <label>
+        <input type="checkbox" name="con_mascotas" {% if request.GET.con_mascotas %}checked{% endif %}>
+        Mostrar solo viviendas con mascotas
+    </label>
+    <button type="submit">Buscar</button>
+    <a href="{% url 'crear_vivienda' %}" class="btn">+ Nueva Vivienda</a>
+
+</form>
+
+<!-- Tabla de viviendas -->
+<table>
+    <tr>
+        <th>Código</th>
+        <th>Familia Propietaria</th>
+        <th>Habitantes</th>
+        <th>Mascotas</th>
+        <th>Acciones</th>
+    </tr>
+    {% for vivienda in viviendas %}
+    <tr>
+        <td>{{ vivienda.codigo }}</td>
+        <td>
+            {% if vivienda.titular %}
+                {{ vivienda.titular.username }}
+            {% else %}
+                <em>Sin titular asignado</em>
+            {% endif %}
+        </td>
+        <td>{{ vivienda.numero_habitantes }}</td>
+        <td>{{ vivienda.numero_mascotas }}</td>
+        <td>
+            <a href="{% url 'detalle_vivienda' vivienda.id %}">Ver</a>
+            <a href="{% url 'editar_vivienda' vivienda.id %}">Editar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

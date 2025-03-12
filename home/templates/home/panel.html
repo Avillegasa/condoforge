@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Panel Principal</h2>
+
+<h3>Últimas Alarmas</h3>
+<ul>
+    {% for alarma in ultimas_alarmas %}
+        <li><strong>{{ alarma.get_tipo_display }}</strong>: {{ alarma.descripcion }} ({{ alarma.fecha_creacion }})</li>
+    {% empty %}
+        <li>No hay alarmas recientes.</li>
+    {% endfor %}
+</ul>
+
+<h3>Solicitudes Pendientes</h3>
+<p>Aquí se mostrarán las viviendas por aprobar, propietarios por aprobar, tareas pendientes, etc.</p>
+
+<h3>Reservas de Áreas Comunes</h3>
+<p>Aquí se mostrarán las reservas activas para hoy y mañana.</p>
+
+{% endblock %}
