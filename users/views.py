@@ -46,7 +46,7 @@ def password_change(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'users/password_change.html', {'form': form})
 
-@login_required
+""" @login_required """
 def user_create(request):
     if request.method == "POST":
         form = UserForm(request.POST)
