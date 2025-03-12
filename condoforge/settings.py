@@ -86,8 +86,9 @@ WSGI_APPLICATION = "condoforge.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('postgresql://db_condominio_user:nPQZSaBjL0aP0zLOibpZJ3KYFaOe53vI@dpg-cv8jdg1u0jms739bchbg-a/db_condominio', default='sqlite:///db.sqlite3'),
-        conn_max_age=600
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,  # Mantiene la conexión por 10 minutos
+        ssl_require=True   # Asegura que se usa SSL en Render
     )
 }
 
