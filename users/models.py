@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
         ('portero', 'Portero'),
         ('limpieza', 'Personal de limpieza'),
         ('visitante', 'Visitante'),
+        ('residente', 'Residente')
     ]
 
     HABITANTE_TYPES = [
@@ -19,7 +20,8 @@ class CustomUser(AbstractUser):
 
     phone = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
-    role = models.CharField(max_length=20, choices=ROLES, default='visitante')
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    role = models.CharField(max_length=20, choices=ROLES, default='residente')
     tipo_habitante = models.CharField(max_length=20, choices=HABITANTE_TYPES, blank=True, null=True)
     vivienda = models.ForeignKey(
         'vivienda.Vivienda',  # Especificamos el modelo correctamente
